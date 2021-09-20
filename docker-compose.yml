@@ -1,0 +1,68 @@
+version: "3.4"
+
+networks:
+ kong-net:
+  driver: bridge
+
+services:
+
+  #######################################
+  # Postgres: The database used by Kong
+  #######################################
+  kong-database:
+    image: postgres:latest
+    restart: always
+    networks:
+      - kong-net
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "kong"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  #######################################
+  # Kong database migration
+  #######################################
+  kong-migration:
+    build: .
+    command: "kong migrations bootstrap"
+    networks:
+      - kong-net
+    restart: on-failure
+    env_file:
+      - .env
+    links:
+      - kong-database
+    depends_on:
+      - kong-database
+
+  #######################################
+  # Kong: The API Gateway
+  #######################################
+  kong:
+    build: .
+    restart: always
+    networks:
+      - kong-net
+    env_file:
+      - .env
+    ports: 
+      - "80:80"
+      - "443:443"
+      - "8001:8001"
+    depends_on:
+      - kong-migration
+      - kong-database
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://kong:8001"]
+      interval: 5s
+      timeout: 2s
+      retries: 15
+  test-http:
+    image: strm/helloworld-http
+    ports:
+      - "8080:80"
