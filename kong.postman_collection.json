@@ -1,0 +1,733 @@
+{
+	"info": {
+		"_postman_id": "9c221423-b81c-4eb6-aa27-b6ed71403c30",
+		"name": "kong",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "01 - create certificate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "host",
+							"value": "strapi.scw.ansc.fr",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8001/acme",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"acme"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "create certificate",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "host",
+									"value": "strapi.scw.ansc.fr",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8001/acme",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"acme"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 20 Sep 2021 15:35:25 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Length",
+							"value": "64"
+						},
+						{
+							"key": "X-Kong-Admin-Latency",
+							"value": "18707"
+						},
+						{
+							"key": "Server",
+							"value": "kong/2.5.1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"certificate for host strapi.scw.ansc.fr is created\"\n}"
+				}
+			]
+		},
+		{
+			"name": "02 - Add service",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "strapi",
+							"type": "text"
+						},
+						{
+							"key": "url",
+							"value": "http://strapi:1337",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8001/services",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"services"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "http://localhost:8001/services",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "strapi",
+									"type": "text"
+								},
+								{
+									"key": "url",
+									"value": "http://strapi:1337",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8001/services",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"services"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 20 Sep 2021 15:32:32 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Length",
+							"value": "349"
+						},
+						{
+							"key": "X-Kong-Admin-Latency",
+							"value": "320"
+						},
+						{
+							"key": "Server",
+							"value": "kong/2.5.1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"tls_verify_depth\": null,\n    \"id\": \"eefc2add-9e0c-4272-a9ef-279df2a08432\",\n    \"retries\": 5,\n    \"port\": 1337,\n    \"client_certificate\": null,\n    \"protocol\": \"http\",\n    \"write_timeout\": 60000,\n    \"connect_timeout\": 60000,\n    \"tags\": null,\n    \"created_at\": 1632151952,\n    \"updated_at\": 1632151952,\n    \"read_timeout\": 60000,\n    \"host\": \"strapi\",\n    \"tls_verify\": null,\n    \"path\": null,\n    \"ca_certificates\": null,\n    \"name\": \"strapi\"\n}"
+				}
+			]
+		},
+		{
+			"name": "03 - Add route",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "strapi",
+							"type": "text"
+						},
+						{
+							"key": "service.name",
+							"value": "strapi",
+							"type": "text"
+						},
+						{
+							"key": "hosts[]",
+							"value": "strapi.scw.ansc.fr",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8001/routes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"routes"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "http://localhost:8001/routes",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "strapi",
+									"type": "text"
+								},
+								{
+									"key": "service.name",
+									"value": "strapi",
+									"type": "text"
+								},
+								{
+									"key": "hosts[]",
+									"value": "strapi.scw.ansc.fr",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8001/routes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"routes"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 20 Sep 2021 15:32:52 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Length",
+							"value": "491"
+						},
+						{
+							"key": "X-Kong-Admin-Latency",
+							"value": "44"
+						},
+						{
+							"key": "Server",
+							"value": "kong/2.5.1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"hosts\": [\n        \"strapi.scw.ansc.fr\"\n    ],\n    \"id\": \"b26e6d4a-b936-49d1-80a9-fcd648779f85\",\n    \"paths\": null,\n    \"methods\": null,\n    \"sources\": null,\n    \"destinations\": null,\n    \"strip_path\": true,\n    \"request_buffering\": true,\n    \"response_buffering\": true,\n    \"regex_priority\": 0,\n    \"service\": {\n        \"id\": \"eefc2add-9e0c-4272-a9ef-279df2a08432\"\n    },\n    \"created_at\": 1632151971,\n    \"updated_at\": 1632151971,\n    \"preserve_host\": false,\n    \"path_handling\": \"v0\",\n    \"protocols\": [\n        \"http\",\n        \"https\"\n    ],\n    \"https_redirect_status_code\": 426,\n    \"headers\": null,\n    \"name\": \"strapi\",\n    \"snis\": null,\n    \"tags\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "Get routes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8001/routes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"routes"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "http://localhost:8001/routes",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "strapi",
+									"type": "text"
+								},
+								{
+									"key": "service.name",
+									"value": "strapi",
+									"type": "text"
+								},
+								{
+									"key": "hosts[]",
+									"value": "strapi.scw.ansc.fr",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8001/routes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"routes"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 20 Sep 2021 15:32:52 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Length",
+							"value": "491"
+						},
+						{
+							"key": "X-Kong-Admin-Latency",
+							"value": "44"
+						},
+						{
+							"key": "Server",
+							"value": "kong/2.5.1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"hosts\": [\n        \"strapi.scw.ansc.fr\"\n    ],\n    \"id\": \"b26e6d4a-b936-49d1-80a9-fcd648779f85\",\n    \"paths\": null,\n    \"methods\": null,\n    \"sources\": null,\n    \"destinations\": null,\n    \"strip_path\": true,\n    \"request_buffering\": true,\n    \"response_buffering\": true,\n    \"regex_priority\": 0,\n    \"service\": {\n        \"id\": \"eefc2add-9e0c-4272-a9ef-279df2a08432\"\n    },\n    \"created_at\": 1632151971,\n    \"updated_at\": 1632151971,\n    \"preserve_host\": false,\n    \"path_handling\": \"v0\",\n    \"protocols\": [\n        \"http\",\n        \"https\"\n    ],\n    \"https_redirect_status_code\": 426,\n    \"headers\": null,\n    \"name\": \"strapi\",\n    \"snis\": null,\n    \"tags\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "Get  service",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "strapi",
+							"type": "text"
+						},
+						{
+							"key": "url",
+							"value": "http://10.12.183.25:1337",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8001/services/eefc2add-9e0c-4272-a9ef-279df2a08432",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"services",
+						"eefc2add-9e0c-4272-a9ef-279df2a08432"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "http://localhost:8001/services",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "strapi",
+									"type": "text"
+								},
+								{
+									"key": "url",
+									"value": "http://strapi:1337",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8001/services",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"services"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 20 Sep 2021 15:32:32 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Length",
+							"value": "349"
+						},
+						{
+							"key": "X-Kong-Admin-Latency",
+							"value": "320"
+						},
+						{
+							"key": "Server",
+							"value": "kong/2.5.1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"tls_verify_depth\": null,\n    \"id\": \"eefc2add-9e0c-4272-a9ef-279df2a08432\",\n    \"retries\": 5,\n    \"port\": 1337,\n    \"client_certificate\": null,\n    \"protocol\": \"http\",\n    \"write_timeout\": 60000,\n    \"connect_timeout\": 60000,\n    \"tags\": null,\n    \"created_at\": 1632151952,\n    \"updated_at\": 1632151952,\n    \"read_timeout\": 60000,\n    \"host\": \"strapi\",\n    \"tls_verify\": null,\n    \"path\": null,\n    \"ca_certificates\": null,\n    \"name\": \"strapi\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Modify service",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "strapi",
+							"type": "text"
+						},
+						{
+							"key": "url",
+							"value": "http://10.12.183.25:1337",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8001/services/eefc2add-9e0c-4272-a9ef-279df2a08432",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"services",
+						"eefc2add-9e0c-4272-a9ef-279df2a08432"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "http://localhost:8001/services",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "strapi",
+									"type": "text"
+								},
+								{
+									"key": "url",
+									"value": "http://strapi:1337",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8001/services",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"services"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 20 Sep 2021 15:32:32 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Length",
+							"value": "349"
+						},
+						{
+							"key": "X-Kong-Admin-Latency",
+							"value": "320"
+						},
+						{
+							"key": "Server",
+							"value": "kong/2.5.1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"tls_verify_depth\": null,\n    \"id\": \"eefc2add-9e0c-4272-a9ef-279df2a08432\",\n    \"retries\": 5,\n    \"port\": 1337,\n    \"client_certificate\": null,\n    \"protocol\": \"http\",\n    \"write_timeout\": 60000,\n    \"connect_timeout\": 60000,\n    \"tags\": null,\n    \"created_at\": 1632151952,\n    \"updated_at\": 1632151952,\n    \"read_timeout\": 60000,\n    \"host\": \"strapi\",\n    \"tls_verify\": null,\n    \"path\": null,\n    \"ca_certificates\": null,\n    \"name\": \"strapi\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Modify route",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "strapi",
+							"type": "text"
+						},
+						{
+							"key": "service.name",
+							"value": "strapi",
+							"type": "text"
+						},
+						{
+							"key": "hosts[]",
+							"value": "strapi.scw.ansc.fr",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8001/routes/b26e6d4a-b936-49d1-80a9-fcd648779f85",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"routes",
+						"b26e6d4a-b936-49d1-80a9-fcd648779f85"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "http://localhost:8001/routes",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "strapi",
+									"type": "text"
+								},
+								{
+									"key": "service.name",
+									"value": "strapi",
+									"type": "text"
+								},
+								{
+									"key": "hosts[]",
+									"value": "strapi.scw.ansc.fr",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8001/routes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"routes"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 20 Sep 2021 15:32:52 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Length",
+							"value": "491"
+						},
+						{
+							"key": "X-Kong-Admin-Latency",
+							"value": "44"
+						},
+						{
+							"key": "Server",
+							"value": "kong/2.5.1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"hosts\": [\n        \"strapi.scw.ansc.fr\"\n    ],\n    \"id\": \"b26e6d4a-b936-49d1-80a9-fcd648779f85\",\n    \"paths\": null,\n    \"methods\": null,\n    \"sources\": null,\n    \"destinations\": null,\n    \"strip_path\": true,\n    \"request_buffering\": true,\n    \"response_buffering\": true,\n    \"regex_priority\": 0,\n    \"service\": {\n        \"id\": \"eefc2add-9e0c-4272-a9ef-279df2a08432\"\n    },\n    \"created_at\": 1632151971,\n    \"updated_at\": 1632151971,\n    \"preserve_host\": false,\n    \"path_handling\": \"v0\",\n    \"protocols\": [\n        \"http\",\n        \"https\"\n    ],\n    \"https_redirect_status_code\": 426,\n    \"headers\": null,\n    \"name\": \"strapi\",\n    \"snis\": null,\n    \"tags\": null\n}"
+				}
+			]
+		}
+	]
+}
